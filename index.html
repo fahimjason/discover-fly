@@ -115,25 +115,7 @@
         <!--Thank You-->
 
         <script>
-            // document.getElementById('increase-first').addEventListener('click', function () {
-            //     handleProductChange(true);
-            //     // const addTicket = document.getElementById('first-class');
-            //     // const ticketCount = parseInt(addTicket.value);
-            //     // const newCount = ticketCount + 1;
-            //     // addTicket.value = newCount;
-            //     // const tickPrice = newCount * 150;
-            //     // document.getElementById('tick-price').innerText = "First Class (" + tickPrice + ")";
-            // })
-            // document.getElementById('decrease-first').addEventListener('click', function () {
-            //     handleProductChange(false);
-            //     // const addTicket = document.getElementById('first-class');
-            //     // const ticketCount = parseInt(addTicket.value);
-            //     // const newCount = ticketCount - 1;
-            //     // addTicket.value = newCount;
-            //     // const tickPrice = newCount * 150;
-            //     // document.getElementById('tick-price').innerText = "First Class (" + tickPrice + ")";
-            // })
-
+            // product increase/decrease event handler
             function handleProductChange(product, isIncrease) {
                 const addProduct = document.getElementById(product + '-class');
                 const productCount = parseInt(addProduct.value);
@@ -157,20 +139,34 @@
                 calculateTotal()
             }
 
-            function calculateTotal() {
-                const firstClass = document.getElementById('first-class');
-                const firstClassCount = parseInt(firstClass.value);
-                const economicClass = document.getElementById('economy-class');
-                const economicClassCount = parseInt(economicClass.value);
 
-                const subTotal = firstClassCount * 150 + economicClassCount * 100;
-                document.getElementById('sub-total').innerText = '$' + subTotal;
+            // calculation of total, tax and subtotal
+            function calculateTotal() {
+                const firstClass = getInputValue('first');
+                const economicClass = getInputValue('economy');
+
+                const subTotal = firstClass * 150 + economicClass * 100;
+                setInnerText('sub-total', subTotal);
 
                 const tax = subTotal * 0.1;
-                document.getElementById('tax').innerText = '$' + tax;
+                setInnerText('tax', tax);
 
                 const total = subTotal + tax;
-                document.getElementById('total').innerText = '$' + total;
+                setInnerText('total', total);
+            }
+
+
+            // count products 
+            function getInputValue(product) {
+                const addProduct = document.getElementById(product + '-class');
+                const productCount = parseInt(addProduct.value);
+                return productCount;
+            }
+
+
+            // set inner text
+            function setInnerText(id, num) {
+                document.getElementById(id).innerText = '$' + num;
             }
         </script>
 </body>
