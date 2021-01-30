@@ -123,3 +123,11 @@ nav ul li a:hover, a.active{
     display: flex;
     justify-content: space-between;
 }
+.book-message{
+    text-align: center;
+    font-size: 18px;
+    color: grey;
+}
+#confirm-details{
+    display: none;
+}

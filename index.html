@@ -28,24 +28,24 @@
 
     <!--Booking Section-->
     <main class="main-content container">
-        <div class="booking-form">
+        <div id="booking-info" class="booking-form">
             <h3>Booking Flights</h3>
             <div class="input-group">
                 <label for="">Flying From</label>
-                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+                <input id="start-booking" class="inp-style" type="text" name="" placeholder="Dhaka, Bangladesh">
             </div>
             <div class="input-group">
                 <label for="">Flying To</label>
-                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+                <input id="end-booking" class="inp-style" type="text" name="" placeholder="New York, United States">
             </div>
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">Departure</label>
-                        <input class="inp-style" type="date" name="">
+                        <input id="departure-booking" class="inp-style" type="date" name="">
                 </div>
                 <div class="input-group">
                     <label for="">Return</label>
-                    <input class="inp-style" type="date" name="">
+                    <input id="return-booking" class="inp-style" type="date" name="">
                 </div>
             </div>
             <div class="input-group f-class">
@@ -101,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button id="book" class="btn-style">Book Now</button>
         </div>
 
         <div class="booking-content">
@@ -112,8 +112,75 @@
         </div>
         </section>
 
-        <!--Thank You-->
+        <section id="confirm-details">
+            <div class="booking-form">
+                <h3> Your Booked Flights Details:</h3>
+                <div class="input-group">
+                    <label for="">Flying From</label>
+                    <p id="start-details">--</p>
+                </div>
+                <div class="input-group">
+                    <label for="">Flying To</label>
+                    <p id="end-details">--</p>
+                </div>
+                <div class="inputs">
+                    <div class="input-group">
+                        <label" for="">Departure </label>
+                            <p id="departure-details">--</p>
+                    </div>
+                    <div class="input-group">
+                        <label for="">Return </label>
+                        <p id="return-details">--</p>
+                    </div>
+                </div>
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">First Class Charge (<span id="first-details">$0</span>)</label>
+                        <p>Quantity: <span id="first-class-details">--</span></p>
+                    </div>
+                </div>
 
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">Economy Charge (<span id="economy-details">$0</span>)</label>
+                        <p>Quantity: <span id="economy-class-details">--</span></p>
+                    </div>
+                </div>
+                <div class="calculations">
+                    <div class="amount">
+                        <div class="left">
+                            <p>Subtotal</p>
+                        </div>
+                        <div class="right">
+                            <p id="sub-total-details">$0</p>
+                        </div>
+                    </div>
+
+                    <div class="amount">
+                        <div class="left">
+                            <p>Charge 10% VAT</p>
+                        </div>
+                        <div class="right">
+                            <p id="tax-details">$0</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="amount">
+                        <div class="left">
+                            <h4>Total</h4>
+                        </div>
+                        <div class="right">
+                            <p id="total-details">$0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-message">
+                    <p>Your booking is confirmed</p>
+                </div>
+            </div>
+        </section>
+
+        <!--Thank You-->
         <script>
             // product increase/decrease event handler
             function handleProductChange(product, isIncrease) {
@@ -140,7 +207,7 @@
             }
 
 
-            // calculation of total, tax and subtotal
+            // calculation of total price, tax and subtotal
             function calculateTotal() {
                 const firstClass = getInputValue('first');
                 const economicClass = getInputValue('economy');
@@ -156,7 +223,7 @@
             }
 
 
-            // count products 
+            // count products
             function getInputValue(product) {
                 const addProduct = document.getElementById(product + '-class');
                 const productCount = parseInt(addProduct.value);
@@ -167,6 +234,39 @@
             // set inner text
             function setInnerText(id, num) {
                 document.getElementById(id).innerText = '$' + num;
+            }
+
+
+            // book event handler
+            document.getElementById('book').addEventListener('click', function () {
+                document.getElementById('booking-info').style.display = 'none';
+                document.getElementById('confirm-details').style.display = 'block';
+
+                setBookDetailsValue('start-booking', 'start-details');
+                setBookDetailsValue('end-booking', 'end-details');
+                setBookDetailsValue('departure-booking', 'departure-details');
+                setBookDetailsValue('return-booking', 'return-details');
+                setBookDetailsText('first-price', 'first-details');
+                setBookDetailsValue('first-class', 'first-class-details');
+                setBookDetailsText('economy-price', 'economy-details');
+                setBookDetailsValue('economy-class', 'economy-class-details');
+                setBookDetailsText('sub-total', 'sub-total-details');
+                setBookDetailsText('tax', 'tax-details');
+                setBookDetailsText('total', 'total-details');
+            })
+
+
+            // set values for booking details
+            function setBookDetailsValue(bookingId, detailsId) {
+                const bookingInfo = document.getElementById(bookingId).value;
+                document.getElementById(detailsId).innerText = bookingInfo;
+            }
+
+
+            // set texts for booking details
+            function setBookDetailsText(bookingId, detailsId) {
+                const bookingInfo = document.getElementById(bookingId).innerText;
+                document.getElementById(detailsId).innerText = bookingInfo;
             }
         </script>
 </body>
